@@ -1,4 +1,18 @@
-# Docker Files
+# Dockerfiles
+
+Dockerfile repository for my projects (https://github.com/bluekyu)
+
+
+
+## Files
+─ dockerfiles
+  ├ linux
+  │  ├ base         : Clang & Python image
+  │  └ android-ndk  : Android NDK image from base
+  └ windows
+     └ msvc16       : Visual Studio 2019 and Clang/LLVM image
+
+
 
 ## Cheetsheet
 See https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
