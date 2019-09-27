@@ -3,17 +3,12 @@
 Dockerfile repository for my projects (https://github.com/bluekyu)
 
 
-
-## Files
-```
-─ dockerfiles
-  ├ linux
-  │  ├ base         : Clang & Python image
-  │  │ android-sdk  : Android SDK image from base
-  │  └ android-ndk  : Android NDK image from Android SDK
-  └ windows
-     └ msvc16       : Visual Studio 2019 and Clang/LLVM image
-```
+| Tags              | Notes                                      | Status                                               |
+| :---------------: | :----------------------------------------: | :--------------------------------------------------: |
+| linux-base        | Clang & Python image                       | [![badge-image-linux-base]][link-dockerhub]          |
+| linux-android-sdk | Android SDK image from base                | [![badge-image-linux-android-sdk]][link-dockerhub]   |
+| linux-android-ndk | Android NDK image from Android SDK         | [![badge-image-linux-android-ndk]][link-dockerhub]   |
+| windows-msvc16    | Visual Studio 2019 and Clang/LLVM image    |                                                      |
 
 
 
@@ -53,3 +48,10 @@ docker rmi $(docker images -a -q)
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
 ```
+
+
+
+[badge-image-linux-base]: https://images.microbadger.com/badges/image/bluekyu/dockerfiles:linux-base.svg
+[badge-image-linux-android-sdk]: https://images.microbadger.com/badges/image/bluekyu/dockerfiles:linux-android-sdk.svg
+[badge-image-linux-android-ndk]: https://images.microbadger.com/badges/image/bluekyu/dockerfiles:linux-android-ndk.svg
+[link-dockerhub]: https://hub.docker.com/r/bluekyu/dockerfiles
