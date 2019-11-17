@@ -22,7 +22,7 @@ jobs:
       run: >-
         docker build
         --tag "$env:IMAGE_NAME:$env:GITHUB_SHA"
-        --tag "$env:REGISTRY_URL/$evn:REPO_NAME/$env:IMAGE_NAME:latest"
+        --tag "$env:REGISTRY_URL/$env:REPO_NAME/$env:IMAGE_NAME:latest"
         .
       working-directory: ./windows/msvc16
 
