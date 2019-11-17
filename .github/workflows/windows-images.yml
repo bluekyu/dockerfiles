@@ -1,0 +1,34 @@
+name: Windows Images
+
+on: [push]
+
+env:
+  REGISTRY_URL: docker.pkg.github.com
+  REPO_NAME: ${{ github.repository }}
+  GITHUB_SHA: ${{ github.sha }}
+
+jobs:
+
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Build windows-msvc16 image
+      env:
+        IMAGE_NAME: windows-msvc16
+      run: >-
+        docker build
+        --tag $IMAGE_NAME:$GITHUB_SHA
+        --tag $REGISTRY_URL/$REPO_NAME/$IMAGE_NAME:latest
+        .
+      working-directory: ./windows/msvc16
+
+    - name: Push Images
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo "$GITHUB_TOKEN" | docker login $REGISTRY_URL --username bluekyu --password-stdin
+        docker push $REGISTRY_URL/$REPO_NAME/windows-msvc16:latest
