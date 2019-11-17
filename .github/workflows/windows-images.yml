@@ -21,8 +21,8 @@ jobs:
         IMAGE_NAME: windows-msvc16
       run: >-
         docker build
-        --tag "$env:IMAGE_NAME:$env:GITHUB_SHA"
-        --tag "$env:REGISTRY_URL/$env:REPO_NAME/$env:IMAGE_NAME:latest"
+        --tag "${env:IMAGE_NAME}:${env:GITHUB_SHA}"
+        --tag "${env:REGISTRY_URL}/${env:REPO_NAME}/${env:IMAGE_NAME}:latest"
         .
       working-directory: ./windows/msvc16
 
@@ -30,5 +30,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        $env:GITHUB_TOKEN | docker login "$env:REGISTRY_URL" --username bluekyu --password-stdin
-        docker push "$env:REGISTRY_URL/$env:REPO_NAME/windows-msvc16:latest"
+        ${env:GITHUB_TOKEN} | docker login "${env:REGISTRY_URL}" --username bluekyu --password-stdin
+        docker push "${env:REGISTRY_URL}/${env:REPO_NAME}/windows-msvc16:latest"
