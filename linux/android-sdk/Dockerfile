@@ -1,7 +1,7 @@
 # Image with Android SDK
 
-ARG IMAGE_REPO=bluekyu/dockerfiles
-ARG IMAGE_TAG=linux-base
+ARG IMAGE_REPO=docker.pkg.github.com/bluekyu/dockerfiles/linux-base
+ARG IMAGE_TAG=latest
 FROM ${IMAGE_REPO}:${IMAGE_TAG}
 
 ENV ANDROID_HOME=${HOME}/tools/android-sdk

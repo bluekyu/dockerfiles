@@ -1,7 +1,7 @@
 # Image with Android NDK
 
-ARG IMAGE_REPO=bluekyu/dockerfiles
-ARG IMAGE_TAG=linux-android-sdk
+ARG IMAGE_REPO=docker.pkg.github.com/bluekyu/dockerfiles/linux-android-sdk
+ARG IMAGE_TAG=latest
 FROM ${IMAGE_REPO}:${IMAGE_TAG}
 
 ENV ANDROID_NDK=${ANDROID_HOME}/ndk-bundle
