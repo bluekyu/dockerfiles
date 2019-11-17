@@ -2,7 +2,7 @@
 
 # Image to build on Visual Studio 2019
 
-FROM python:3.7.4-windowsservercore-ltsc2016
+FROM python:3.7-windowsservercore-1809
 
 ENV HOME=C:\home
 
