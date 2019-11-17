@@ -51,7 +51,7 @@ jobs:
       working-directory: ./linux/android-ndk
 
     - name: Push Images
-      evn:
+      env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "$GITHUB_TOKEN" | docker login $REGISTRY_URL --username bluekyu --password-stdin
