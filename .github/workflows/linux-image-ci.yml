@@ -14,12 +14,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build linux-base image
+      
+    - name: Login registry
+      run: docker login $REGISTRY_URL --username bluekyu -p ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and Push linux-base image
       env:
         IMAGE_NAME: linux-base
       run: |
-        docker build . --tag $IMAGE_NAME:$(date +%s) --tag $IMAGE_NAME:latest
-        docker login $REGISTRY_URL --username bluekyu -p ${{ secrets.GITHUB_TOKEN }}
+        docker build . --tag $REGISTRY_URL/$REPO_NAME/$IMAGE_NAME:latest
         docker push $REGISTRY_URL/$REPO_NAME/$IMAGE_NAME:latest
-      working-directory: ./linux/base
-      
+      working-directory: ./linux/base  
