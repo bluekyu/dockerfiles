@@ -2,6 +2,10 @@ name: Linux Image CI
 
 on: [push]
 
+env:
+  REGISTRY_URL: docker.pkg.github.com
+  REPO_NAME: ${{ github.repository }}
+
 jobs:
 
   build:
@@ -11,5 +15,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build linux-base image
-      run: docker build . --tag linux-base:$(date +%s)
+      env:
+        IMAGE_NAME: linux-base
+      run: |
+        docker build . --tag $IMAGE_NAME:$(date +%s) --tag $IMAGE_NAME:latest
+        docker login $REGISTRY_URL --username bluekyu -p ${{ secrets.GITHUB_TOKEN }}
+        docker push $REGISTRY_URL/$REPO_NAME/$IMAGE_NAME:latest
       working-directory: ./linux/base
+      
