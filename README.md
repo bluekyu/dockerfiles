@@ -1,9 +1,10 @@
 # Dockerfiles
 
+![linux-actions-svg](https://github.com/bluekyu/dockerfiles/workflows/Linux%20Images/badge.svg)
+
 Dockerfile repository for my projects (https://github.com/bluekyu)
 
-
-| Tags              | Notes                                      | Status                                               |
+| Images            | Notes                                      | Status                                               |
 | :---------------: | :----------------------------------------: | :--------------------------------------------------: |
 | linux-base        | Clang & Python image                       | [![badge-image-linux-base]][link-dockerhub]          |
 | linux-android-sdk | Android SDK image from base                | [![badge-image-linux-android-sdk]][link-dockerhub]   |
