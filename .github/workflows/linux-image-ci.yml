@@ -1,0 +1,15 @@
+name: Linux Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build linux-base image
+      run: docker build . --tag linux-base:$(date +%s)
+      working-directory: ./linux/base
