@@ -2,7 +2,7 @@
 
 # Image to build on Visual Studio 2019
 
-FROM python:3.7-windowsservercore-1809
+FROM python:3.8-windowsservercore-1809
 
 ENV HOME=C:\home
 
@@ -10,10 +10,11 @@ WORKDIR ${HOME}
 
 # Git
 # From https://github.com/docker-library/golang/blob/master/1.12/windows/windowsservercore-ltsc2016/Dockerfile
-ENV GIT_VERSION 2.23.0
-ENV GIT_TAG v${GIT_VERSION}.windows.1
-ENV GIT_DOWNLOAD_URL https://github.com/git-for-windows/git/releases/download/${GIT_TAG}/MinGit-${GIT_VERSION}-64-bit.zip
-ENV GIT_DOWNLOAD_SHA256 8F65208F92C0B4C3AE4C0CF02D4B5F6791D539CD1A07B2DF62B7116467724735
+ENV GIT_VERSION 2.24.1
+ENV GIT_VERSION_PATCH ${GIT_VERSION}.2
+ENV GIT_TAG v${GIT_VERSION}.windows.2
+ENV GIT_DOWNLOAD_URL https://github.com/git-for-windows/git/releases/download/${GIT_TAG}/MinGit-${GIT_VERSION_PATCH}-64-bit.zip
+ENV GIT_DOWNLOAD_SHA256 83F2983FA7689109FD7BE0F2A54B178CA3D5B2F5519D99AADA84F5E00C3EF4C9
 
 RUN Write-Host ('Downloading {0} ...' -f $env:GIT_DOWNLOAD_URL); `
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
@@ -41,9 +42,9 @@ RUN Write-Host ('Downloading {0} ...' -f $env:GIT_DOWNLOAD_URL); `
     Write-Host 'Complete.';
 
 # CMake
-ENV CMAKE_VERSION 3.15.4
+ENV CMAKE_VERSION 3.16.2
 ENV CMAKE_DOWNLOAD_URL https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}-win64-x64.msi
-ENV CMAKE_DOWNLOAD_SHA256 9971F2033B350E7603D4CCAFE3B8E11BCEB12C4ADD52E0FD769C13B29D2632B6
+ENV CMAKE_DOWNLOAD_SHA256 52C230D229EAC9E509321D4D43172AF5E9303ECAC3CC34A97D9DA6094A7C1E7E
 
 RUN Write-Host ('Downloading {0} ...' -f $env:CMAKE_DOWNLOAD_URL); `
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; `
