@@ -7,11 +7,11 @@
 FROM ubuntu:disco as linux-base
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    HOME=/home/appuser \
     CC=clang \
     CXX=clang++
 
-ENV BINARY_DIR=${HOME}/build
+ENV SOURCE_DIR=/home/src \
+    BINARY_DIR=/home/build
 
 RUN apt-get -y update && apt-get install -y --no-install-recommends apt-utils
 RUN apt-get install -y --no-install-recommends \
@@ -44,8 +44,7 @@ RUN curl -sL ${CMAKE_DOWNLOAD_URL} -o cmake.sh && \
     rm cmake.sh && \
     cmake --version
 
-RUN mkdir ${HOME}/build
-WORKDIR ${HOME}
+RUN mkdir -p ${BINARY_DIR}
 
 ###################################################################################################
 
@@ -53,22 +52,26 @@ WORKDIR ${HOME}
 
 FROM linux-base as android-sdk
 
-ENV ANDROID_SDK_ROOT=${HOME}/tools/android-sdk
-ENV PATH=${PATH}:${ANDROID_SDK_ROOT}/tools/bin
+ENV ANDROID_SDK_ROOT=/home/tools/android-sdk
+ENV ANDROID_HOME=${ANDROID_SDK_ROOT} \
+    PATH=${PATH}:${ANDROID_SDK_ROOT}/tools/bin
 
 # packages
 RUN apt-get install -y --no-install-recommends \
     openjdk-8-jdk-headless
 
 # SDK
-ENV ANDROID_SDK_DOWNLOAD_URL=https://dl.google.com/android/repository/commandlinetools-linux-6200805_latest.zip \
-    ANDROID_SDK_DOWNLOAD_SHA256=f10f9d5bca53cc27e2d210be2cbc7c0f1ee906ad9b868748d74d62e10f2c8275
+ENV ANDROID_SDK_DOWNLOAD_URL=https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip \
+    ANDROID_SDK_DOWNLOAD_SHA256=92ffee5a1d98d856634e8b71132e8a95d96c83a63fde1099be3d86df3106def9
 
-RUN mkdir -p ${ANDROID_SDK_ROOT} \
+RUN mkdir -p ${ANDROID_SDK_ROOT} && \
     curl -s ${ANDROID_SDK_DOWNLOAD_URL} -o commandlinetools.zip && \
     echo "${ANDROID_SDK_DOWNLOAD_SHA256}  commandlinetools.zip" | sha256sum -c - && \
     unzip -qq commandlinetools.zip -d "${ANDROID_SDK_ROOT}" && \
     rm commandlinetools.zip
+
+# Check sdk manager installation
+RUN sdkmanager --list 1>/dev/null
 
 ###################################################################################################
 
@@ -80,5 +83,8 @@ ENV ANDROID_NDK=${ANDROID_SDK_ROOT}/ndk/21.0.6113669
 ENV PATH=${PATH}:${ANDROID_NDK}
 
 # NDK
-RUN yes | sdkmanager --licenses
-RUN sdkmanager "ndk;21.0.6113669" "cmake;3.10.2.4988404"
+RUN echo "y" | sdkmanager "ndk;21.0.6113669" "cmake;3.10.2.4988404"
+
+###################################################################################################
+
+WORKDIR /home
